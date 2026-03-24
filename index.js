@@ -118,3 +118,5 @@ app.delete('/product/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at ${PORT}`)
 })
+
+app.use('/product', Product)
