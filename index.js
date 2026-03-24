@@ -97,5 +97,24 @@ app.put('/products/:id', async (req, res) => {
 app.delete('/product/:id', async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id)
-  } catch (error) {}
+
+    if (!deletedProduct) {
+      return res.status(404).json({
+        message: 'Product not found',
+      })
+    }
+    res.json({
+      message: 'Product deleted successfully',
+      deletedProduct,
+    })
+  } catch (error) {
+    res.status(400).json({
+      message: 'Error deleting product',
+      error: error.message,
+    })
+  }
+})
+
+app.listen(PORT, () => {
+  console.log(`Server is running at ${PORT}`)
 })
